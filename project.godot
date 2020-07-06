@@ -16,12 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="MDFramework-Examples"
-run/main_scene="res://BasicNetworkLobby/BasicNetworkLobby.tscn"
+run/main_scene="res://EmptyScene.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-GameInstance="*res://BasicNetworkLobby/CustomGameInstance.cs"
+GameInstance="*res://MDFramework/MDGameInstance.cs"
 
 [rendering]
 
