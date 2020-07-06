@@ -1,0 +1,3 @@
+[submodule "MDFramework"]
+	path = MDFramework
+	url = https://github.com/DoubleDeez/MDFramework.git
