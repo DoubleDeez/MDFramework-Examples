@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [ master,empty ]
+  pull_request:
+    branches: [ master,empty ]
+
+env:
+  GODOT_VERSION: 3.2.2
+
+jobs:
+  build:
+    name: Build Examples
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1.5.0
+    
+    - name: Setup Godot
+      run: |
+        mkdir -p .mono/assemblies/Debug
+        mkdir -p .mono/assemblies/Release
+        cd ..
+        wget -O godot.zip https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/mono/Godot_v${GODOT_VERSION}-stable_mono_linux_headless_64.zip
+        sudo apt install unzip
+        unzip godot.zip
+        cd MDFramework-Examples
+        cp -R ../Godot_v${GODOT_VERSION}-stable_mono_linux_headless_64/GodotSharp/Api/Debug/* .mono/assemblies/Debug
+        cp -R ../Godot_v${GODOT_VERSION}-stable_mono_linux_headless_64/GodotSharp/Api/Release/* .mono/assemblies/Release
+    
+    - name: Setup MDFramework
+      run: |
+        git submodule update --init --recursive
+        
+    - name: Build Examples
+      run: |
+        export DOTNET_CLI_TELEMETRY_OPTOUT="true"
+        dotnet build -c=Debug
+        dotnet build -c=ExportRelease
