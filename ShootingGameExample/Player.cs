@@ -102,6 +102,18 @@ public class Player : KinematicBody2D
         }
     }
 
+    [Remote]
+    protected void OnShoot()
+    {
+        GD.Print("OnShoot called");
+    }
+
+    [Remote]
+    protected void OnShoot(String val, String val2)
+    {
+        GD.Print("OnShoot<String, String> called");
+    }
+
     private PackedScene GetBulletScene()
     {
         if (BulletScene == null)
@@ -123,6 +135,8 @@ public class Player : KinematicBody2D
             {
                 // Shoot towards mouse position
                 this.MDRpc(nameof(OnShoot), GetGlobalMousePosition());
+                this.MDRpc(nameof(OnShoot));
+                this.MDRpc(nameof(OnShoot), "test", "test2");
 
                 // Call it on local client, could do with RemoteSynch as well but then it won't work in standalone
                 OnShoot(GetGlobalMousePosition());
