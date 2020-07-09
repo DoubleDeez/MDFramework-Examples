@@ -38,7 +38,7 @@ jobs:
         
     - name: Build Examples
       run: |
-        cd ../Examples
         export DOTNET_CLI_TELEMETRY_OPTOUT="true"
         dotnet build -c=Debug
         dotnet build -c=ExportRelease
+        ../Godot_v${GODOT_VERSION}-stable_mono_linux_headless_64/Godot_v${GODOT_VERSION}-stable_mono_linux_headless.64 -e -q -v --build-solutions
