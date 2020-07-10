@@ -24,7 +24,7 @@ public class ListActor : Node2D
 {
     public const string GROUP_ACTORS = "LIST_ACTORS";
     [MDReplicated]
-    [MDReplicatedSetting(MDReplicatedCommandReplicator.Settings.OnValueChangedEvent, nameof(OnStringListChangedChanged))]
+    [MDReplicatedSetting(MDReplicatedCommandReplicator.Settings.OnValueChangedEvent, nameof(OnStringListChanged))]
     [MDReplicatedSetting(MDList.Settings.COMPARATOR, typeof(MDListICompareNormal))] // Valid
     [MDReplicatedSetting(MDList.Settings.COMPARATOR, typeof(MDListICompareNormal))] // Invalid, already in list
     [MDReplicatedSetting(MDList.Settings.COMPARATOR, typeof(ListActor))] // Invalid, does not implement ICompare<string>
@@ -100,7 +100,7 @@ public class ListActor : Node2D
         }
     }
 
-    public void OnStringListChangedChanged()
+    public void OnStringListChanged()
     {
         // Remote list has been changed
         RefreshList();
@@ -262,7 +262,7 @@ public class ListActor : Node2D
         if (selection.Length > 0 && value != null && value != "")
         {
             List<String> RangeAdd = new List<string>();
-            for (int i =0; i < 5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 RangeAdd.Add(value + "0" + i);
             }
