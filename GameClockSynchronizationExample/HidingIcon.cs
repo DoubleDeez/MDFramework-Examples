@@ -13,16 +13,16 @@ public class HidingIcon : Area2D
     protected RandomNumberGenerator Random = new RandomNumberGenerator();
 
     [MDReplicated]
-    [MDReplicatedSetting(MDClockedReplicatedMember.Settings.OnValueChangedEvent, nameof(OnVisibilityChanged))]
+    [MDReplicatedSetting(MDReplicatedMember.Settings.OnValueChangedEvent, nameof(OnVisibilityChanged))]
     protected Boolean NetworkedVisible = true;
 
     [MDReplicated]
-    [MDReplicatedSetting(MDClockedReplicatedMember.Settings.OnValueChangedEvent, nameof(OnPositionChanged))]
+    [MDReplicatedSetting(MDReplicatedMember.Settings.OnValueChangedEvent, nameof(OnPositionChanged))]
     protected Vector2 NetworkedPosition;
 
     [MDReplicated(MDReliability.Reliable, MDReplicatedType.OnChange)]
-    [MDReplicatedSetting(MDClockedReplicatedMember.Settings.OnValueChangedEvent, nameof(OnScaleChanged))]
-    [MDReplicatedSetting(MDReplicator.Settings.ReplicatedMemberType, typeof(MDClockedReplicatedMember))]
+    [MDReplicatedSetting(MDReplicatedMember.Settings.OnValueChangedEvent, nameof(OnScaleChanged))]
+    [MDReplicatedSetting(MDReplicator.Settings.ReplicatedMemberType, typeof(MDReplicatedMember))]
     protected Vector2 NetworkedScale;
 
     protected float Radius = 100f;
