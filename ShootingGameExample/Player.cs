@@ -5,6 +5,18 @@ using MD;
 [MDAutoRegister]
 public class Player : KinematicBody2D
 {
+    public class PlayerSettings
+    {
+        [MDReplicated]
+        public Color PlayerColor { get; set; }
+
+        [MDReplicated]
+        public int PlayerShotCounter { get; set; }
+
+        [MDReplicated]
+        public String PlayerString { get; set; }
+    }
+
     public const string PLAYER_GROUP = "PLAYERS";
 
     [Export]
@@ -38,12 +50,12 @@ public class Player : KinematicBody2D
     [MDReplicated(MDReliability.Unreliable, MDReplicatedType.Interval)]
     [MDReplicatedSetting(MDReplicator.Settings.GroupName, "PlayerPositions")]
     [MDReplicatedSetting(MDReplicator.Settings.ProcessWhilePaused, false)]
-    [MDReplicatedSetting(MDClockedReplicatedMember.Settings.OnValueChangedEvent, nameof(OnPositionChanged))]
+    [MDReplicatedSetting(MDReplicatedMember.Settings.OnValueChangedEvent, nameof(OnPositionChanged))]
     protected Vector2 NetworkedPosition;
 
     [MDReplicated(MDReliability.Reliable, MDReplicatedType.OnChange)]
-    [MDReplicatedSetting(MDClockedReplicatedMember.Settings.OnValueChangedEvent, nameof(UpdateColor))]
-    protected Color NetworkedColor { get; set; }
+    [MDReplicatedSetting(MDReplicatedMember.Settings.OnValueChangedEvent, nameof(UpdateColor))]
+    protected PlayerSettings NetworkedPlayerSettings { get; set; }
 
     [Puppet]
     protected String RsetTest = "";
@@ -60,8 +72,11 @@ public class Player : KinematicBody2D
             rnd.Randomize();
 
             // Let's set our color
-            NetworkedColor = new Color(rnd.Randf(), rnd.Randf(), rnd.Randf());
-            Modulate = NetworkedColor;
+            NetworkedPlayerSettings = new PlayerSettings();
+            NetworkedPlayerSettings.PlayerColor = new Color(rnd.Randf(), rnd.Randf(), rnd.Randf());
+            NetworkedPlayerSettings.PlayerShotCounter = 0;
+            NetworkedPlayerSettings.PlayerString = $"Some string {rnd.RandiRange(0, 10000)}";
+            Modulate = NetworkedPlayerSettings.PlayerColor;
         }
         else
         {
@@ -72,7 +87,12 @@ public class Player : KinematicBody2D
 
     protected void UpdateColor()
     {
-        Modulate = NetworkedColor;
+        if (NetworkedPlayerSettings == null || NetworkedPlayerSettings.PlayerColor == null)
+        {
+            return;
+        }
+        GD.Print($"NetworkedPlayerSettings Update, Counter: {NetworkedPlayerSettings.PlayerShotCounter}");
+        Modulate = NetworkedPlayerSettings.PlayerColor;
     }
 
     public void Hit()
@@ -140,6 +160,7 @@ public class Player : KinematicBody2D
 
                 // Call it on local client, could do with RemoteSynch as well but then it won't work in standalone
                 OnShoot(GetGlobalMousePosition());
+                NetworkedPlayerSettings.PlayerShotCounter++;
                 WeaponActiveCooldown = WeaponCooldown;
             }
             else if (Input.IsMouseButtonPressed(2) && RsetActiveCooldown <= 0f)
