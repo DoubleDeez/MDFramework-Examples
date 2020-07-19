@@ -21,7 +21,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-GameInstance="*res://BasicNetworkLobby/CustomGameInstance.cs"
+GameInstance="*res://MDFramework/MDGameInstance.cs"
 
 [rendering]
 

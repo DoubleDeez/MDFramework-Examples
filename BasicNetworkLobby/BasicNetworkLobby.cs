@@ -44,7 +44,6 @@ public class BasicNetworkLobby : Node2D
         GameSession = this.GetGameSession();
         GameSession.OnPlayerJoinedEvent += OnPlayerJoined;
         GameSession.OnPlayerLeftEvent += OnPlayerLeft;
-        GameSession.OnPlayerNameChanged += OnPlayerNameChanged;
         GameSession.OnSessionStartedEvent += OnSessionStartedEvent;
         GameSession.OnSessionFailedEvent += OnSessionFailedOrEndedEvent;
         GameSession.OnSessionEndedEvent += OnSessionFailedOrEndedEvent;
@@ -55,7 +54,6 @@ public class BasicNetworkLobby : Node2D
     {
         GameSession.OnPlayerJoinedEvent -= OnPlayerJoined;
         GameSession.OnPlayerLeftEvent -= OnPlayerLeft;
-        GameSession.OnPlayerNameChanged -= OnPlayerNameChanged;
         GameSession.OnSessionStartedEvent -= OnSessionStartedEvent;
         GameSession.OnSessionFailedEvent -= OnSessionFailedOrEndedEvent;
         GameSession.OnSessionEndedEvent += OnSessionFailedOrEndedEvent;
@@ -111,11 +109,6 @@ public class BasicNetworkLobby : Node2D
         ToggleDisconnectVisible(false);
     }
 
-    protected virtual void OnPlayerNameChanged(int PeerId)
-    {
-        MDLog.Info(LOG_CAT, $"Player changed name to {GameSession.GetPlayerInfo(PeerId).GetPlayerName()}");
-    }
-
     protected virtual void OnPlayerLeft(int PeerId)
     {
         // TODO: Do cleanup code here
@@ -127,7 +120,7 @@ public class BasicNetworkLobby : Node2D
     {
         // TODO: Spawn player here, should be done with CallDeferred
         MDLog.Info(LOG_CAT,
-            $"Player joined {GameSession.GetPlayerInfo(PeerId).GetPlayerName()} with PeerID {PeerId}");
+            $"Player joined {GameSession.GetPlayerInfo(PeerId).PlayerName} with PeerID {PeerId}");
     }
 
     #endregion

@@ -27,7 +27,6 @@ public class SyncInterface : CenterContainer
         this.GetGameSynchronizer().OnSynchCompleteEvent += OnSynchCompleteEvent;
         this.GetGameSession().OnPlayerJoinedEvent += OnPlayerJoinedEvent;
         this.GetGameSession().OnPlayerLeftEvent += OnPlayerLeftEvent;
-        this.GetGameSession().OnPlayerNameChanged += OnPlayerNameChanged;
 
         ResumeTimer.OneShot = true;
         ResumeTimer.PauseMode = PauseModeEnum.Process;
@@ -40,7 +39,6 @@ public class SyncInterface : CenterContainer
         this.GetGameSynchronizer().OnSynchCompleteEvent -= OnSynchCompleteEvent;
         this.GetGameSession().OnPlayerJoinedEvent -= OnPlayerJoinedEvent;
         this.GetGameSession().OnPlayerLeftEvent -= OnPlayerLeftEvent;
-        this.GetGameSession().OnPlayerNameChanged -= OnPlayerNameChanged;
     }
 
     protected void OnPlayerJoinedEvent(int PeerId)
@@ -48,6 +46,7 @@ public class SyncInterface : CenterContainer
         if (Visible)
         {
             MDPlayerInfo info = this.GetGameSession().GetPlayerInfo(PeerId);
+            info.OnPlayerNameChangedEvent += (PlayerName) => OnPlayerNameChanged(PlayerName, PeerId);
             NewSynchRow(info);
         }
     }
@@ -64,13 +63,12 @@ public class SyncInterface : CenterContainer
         }
     }
 
-    protected void OnPlayerNameChanged(int PeerId)
+    protected void OnPlayerNameChanged(string PlayerName, int PeerId)
     {
         PeerSynchStatusRow row = FindPeerRow(PeerId);
         if (row != null)
         {
-            MDPlayerInfo info = this.GetGameSession().GetPlayerInfo(row.PeerId);
-            row.SetPlayerName(info.GetPlayerName());
+            row.SetPlayerName(PlayerName);
         }
     }
 
@@ -145,7 +143,7 @@ public class SyncInterface : CenterContainer
 
         PeerSynchStatusRow row = (PeerSynchStatusRow) SynchRow.Instance();
         Container.AddChild(row);
-        row.SetPlayerName(info.GetPlayerName());
+        row.SetPlayerName(info.PlayerName);
         row.PeerId = info.PeerId;
         if (info.PeerId == MDStatics.GetServerId())
         {
