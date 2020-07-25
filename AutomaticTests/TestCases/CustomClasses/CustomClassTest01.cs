@@ -38,12 +38,6 @@ public class CustomClassTest01 : AutomaticTestBase
 	[MDReplicated]
 	private CustomClassWithStrings MyCustomClass;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		
-	}
-
 	protected void Test1()
 	{
 		MyCustomClass = new CustomClassWithStrings(STRING_VALUE01, STRING_VALUE02);
@@ -63,7 +57,6 @@ public class CustomClassTest01 : AutomaticTestBase
 		{
 			LogError($"String property should be '{STRING_VALUE02}' but is '{MyCustomClass.StringProperty}'");
 		}
-		TestFinished();
 	}
 
 	protected void Test2()
@@ -86,7 +79,6 @@ public class CustomClassTest01 : AutomaticTestBase
 		{
 			LogError($"String property should be '{STRING_VALUE01}' but is '{MyCustomClass.StringProperty}'");
 		}
-		TestFinished();
 	}
 
 	protected void Test3()
@@ -109,7 +101,6 @@ public class CustomClassTest01 : AutomaticTestBase
 		{
 			LogError($"String property should be null but is '{MyCustomClass.StringProperty}'");
 		}
-		TestFinished();
 	}
 
 	protected void Test4()
@@ -123,6 +114,5 @@ public class CustomClassTest01 : AutomaticTestBase
 		{
 			LogError("Custom class is not null");
 		}
-		TestFinished();
 	}
 }

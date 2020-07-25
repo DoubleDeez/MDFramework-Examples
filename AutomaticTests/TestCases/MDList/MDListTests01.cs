@@ -19,12 +19,6 @@ public class MDListTests01 : AutomaticTestBase
 
 	[MDReplicated]
 	MDList<string> StringList;
-
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		
-	}
     
 	protected void Test1()
 	{
@@ -41,7 +35,6 @@ public class MDListTests01 : AutomaticTestBase
 		{
 			LogError($"List text is not correct, it is {StringList[0]}");
 		}
-		TestFinished();
 	}
 
 	protected void Test2()
@@ -55,7 +48,6 @@ public class MDListTests01 : AutomaticTestBase
 		{
 			LogError("List still contain items");
 		}
-		TestFinished();
 	}
 
 	protected void Test3()
@@ -83,7 +75,6 @@ public class MDListTests01 : AutomaticTestBase
                 }
             }
         }
-		TestFinished();
 	}
 
 	protected void Test4()
@@ -100,6 +91,5 @@ public class MDListTests01 : AutomaticTestBase
 				AddError($"List string wrong, expected '{TEST_STRING}{i}' instead we got '{StringList[i]}'");
 			}
 		}
-		TestFinished();
 	}
 }

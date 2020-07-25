@@ -39,12 +39,6 @@ public class CustomClassTest02 : AutomaticTestBase
 	[MDReplicated]
 	private CustomClassWithList MyCustomClass;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		
-	}
-
 	protected void Test1()
 	{
 		MyCustomClass = new CustomClassWithList();
@@ -60,7 +54,6 @@ public class CustomClassTest02 : AutomaticTestBase
 		{
 			LogError($"List is null");
 		}
-		TestFinished();
 	}
 
 	protected void Test2()
@@ -91,7 +84,6 @@ public class CustomClassTest02 : AutomaticTestBase
 		{
 			LogError($"String property should be '{STRING_VALUE02}' but is '{MyCustomClass.ListValue[0].StringProperty}'");
 		}
-		TestFinished();
 	}
 
 	protected void Test3()
@@ -113,7 +105,6 @@ public class CustomClassTest02 : AutomaticTestBase
 		{
 			LogError($"List has entries");
 		}
-		TestFinished();
 	}
 
 	protected void Test4()
@@ -140,7 +131,6 @@ public class CustomClassTest02 : AutomaticTestBase
 		{
 			LogError($"List entry is null");
 		}
-		TestFinished();
 	}
 
 	protected void Test5()
@@ -179,7 +169,6 @@ public class CustomClassTest02 : AutomaticTestBase
 		{
 			LogError($"Inner list entry is null");
 		}
-		TestFinished();
 	}
 
 	protected void Test6()
@@ -198,6 +187,5 @@ public class CustomClassTest02 : AutomaticTestBase
 		{
 			LogError("Recursive list is not null");
 		}
-		TestFinished();
 	}
 }

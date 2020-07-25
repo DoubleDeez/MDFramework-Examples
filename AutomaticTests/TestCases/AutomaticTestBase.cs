@@ -56,6 +56,7 @@ public abstract class AutomaticTestBase : Node2D, IAutomaticTest
             MDLog.Debug(LOG_CAT, $"{this.GetType().ToString()}: Invoking ValidateTest{CurrentTest}");
             MDLog.Debug(LOG_CAT, $"---------------------------------------------------------------");
             this.Invoke($"ValidateTest{CurrentTest}");
+            TestFinished();
         }
         catch {}
     }

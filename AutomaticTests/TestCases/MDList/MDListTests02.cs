@@ -16,12 +16,6 @@ public class MDListTests02 : AutomaticTestBase
 
 	[MDReplicated]
 	MDList<CustomClassWithStrings> StringList;
-
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		
-	}
     
 	protected void Test1()
 	{
@@ -46,7 +40,6 @@ public class MDListTests02 : AutomaticTestBase
 		{
 			LogError($"List property is not correct, it is {StringList[0].StringProperty}");
 		}
-		TestFinished();
 	}
 
 	protected void Test2()
@@ -73,6 +66,5 @@ public class MDListTests02 : AutomaticTestBase
 		{
 			LogError($"List property is not correct, it is {StringList[0].StringProperty}");
 		}
-		TestFinished();
 	}
 }
