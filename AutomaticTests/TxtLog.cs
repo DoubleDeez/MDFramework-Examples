@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 public class TxtLog : RichTextLabel
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		
-	}
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        
+    }
 
     public void LogNoLineBreak(string Text, Color Color)
     {
