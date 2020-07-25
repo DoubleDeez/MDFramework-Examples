@@ -36,7 +36,6 @@ public class CustomClassTest01 : AutomaticTestBase
 	private const string STRING_VALUE02 = "This is a different string";
 
 	[MDReplicated]
-	[MDReplicatedSetting(MDReplicatedMember.Settings.OnValueChangedEvent, nameof(DoValidation))]
 	private CustomClassWithStrings MyCustomClass;
 
 	// Called when the node enters the scene tree for the first time.

@@ -23,10 +23,12 @@ internal class CustomClassWithList
 
 /// <summary>
 /// This tests the following
-/// 1 - Creating a custom class
-/// 2 - Changing a value and property within the custom class
-/// 3 - Setting a value and property to null
-/// 4 - Setting the custom class itself to null
+/// 1 - Creating a custom class with lists
+/// 2 - Add a new custom class to the list
+/// 3 - Remove from the list
+/// 4 - Add a recursive custom class to the recrusive list
+/// 5 - Add another recursive custom class to the list inside the custom class added in the last step
+/// 6 - Set both lists to null
 /// </summary>
 [MDAutoRegister]
 public class CustomClassTest02 : AutomaticTestBase
@@ -35,7 +37,6 @@ public class CustomClassTest02 : AutomaticTestBase
 	private const string STRING_VALUE02 = "This is a different string";
 
 	[MDReplicated]
-	[MDReplicatedSetting(MDReplicatedMember.Settings.OnValueChangedEvent, nameof(DoValidation))]
 	private CustomClassWithList MyCustomClass;
 
 	// Called when the node enters the scene tree for the first time.
@@ -184,13 +185,18 @@ public class CustomClassTest02 : AutomaticTestBase
 	protected void Test6()
 	{
 		MyCustomClass.ListValue = null;
+		MyCustomClass.RecursiveList = null;
 	}
 
 	protected void ValidateTest6()
 	{
 		if (MyCustomClass.ListValue != null)
 		{
-			LogError("MDList is not null");
+			LogError("Value list is not null");
+		}
+		if (MyCustomClass.RecursiveList != null)
+		{
+			LogError("Recursive list is not null");
 		}
 		TestFinished();
 	}

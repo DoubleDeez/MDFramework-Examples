@@ -29,7 +29,7 @@ public class AutomaticTestsMain : Node2D
 
 	private int FailedTests = 0;
 
-    private float TimeoutTimer = 0f;
+	private float TimeoutTimer = 0f;
 
 	MDGameSession GameSession;
 
@@ -86,16 +86,16 @@ public class AutomaticTestsMain : Node2D
 		}
 	}
 
-    private void FinishTest()
-    {
-        LogTestResults(RunningTest);
-        ((Node)RunningTest).RemoveAndFree();
-        RunningTest = null;
-    }
+	private void FinishTest()
+	{
+		LogTestResults(RunningTest);
+		((Node)RunningTest).RemoveAndFree();
+		RunningTest = null;
+	}
 
 	private void StartNextTest()
 	{
-        TimeoutTimer += CHECK_TEST_STATUS_DELAY;
+		TimeoutTimer += CHECK_TEST_STATUS_DELAY;
 		if (RunningTest != null)
 		{
 			if (RunningTest.IsComplete())
@@ -104,16 +104,16 @@ public class AutomaticTestsMain : Node2D
 			}
 			else
 			{
-                if (TimeoutTimer > RunningTest.GetTimeoutDurationInSeconds())
-                {
-                    // Test timed out
-                    LogNoLineBreak($" - TEST {RunningTest.GetCurrentRunningTest()} TIMED OUT", Colors.Red);
-                    FinishTest();
-                }
-                else
-                {
-				    return;
-                }
+				if (TimeoutTimer > RunningTest.GetTimeoutDurationInSeconds())
+				{
+					// Test timed out
+					LogNoLineBreak($" - TEST {RunningTest.GetCurrentRunningTest()} TIMED OUT", Colors.Red);
+					FinishTest();
+				}
+				else
+				{
+					return;
+				}
 			}
 		}
 		if (Tests.Count == 0)
@@ -137,7 +137,7 @@ public class AutomaticTestsMain : Node2D
 		RunningTest = (IAutomaticTest)this.SpawnNetworkedNode(Scene, "Test");
 		LogNoLineBreak($"Running test: {Scene.ResourcePath}", Colors.DarkGreen);
 		RunningTest.StartTest();
-        TimeoutTimer = 0f;
+		TimeoutTimer = 0f;
 	}
 
 	private void LoadConfig()

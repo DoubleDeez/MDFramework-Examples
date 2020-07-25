@@ -18,7 +18,6 @@ public class MDListTests01 : AutomaticTestBase
 	private const int TEST03_STRING_COUNT = 20;
 
 	[MDReplicated]
-	[MDReplicatedSetting(MDReplicatedMember.Settings.OnValueChangedEvent, nameof(DoValidation))]
 	MDList<string> StringList;
 
 	// Called when the node enters the scene tree for the first time.
@@ -72,15 +71,18 @@ public class MDListTests01 : AutomaticTestBase
 		// Wait for all strings to arrive
 		if (StringList.Count < TEST03_STRING_COUNT)
 		{
-			return;
+			AddError($"List has  '{StringList.Count} items, it is supposed to have {TEST03_STRING_COUNT}");
 		}
-		for (int i = 0; i < TEST03_STRING_COUNT; i++)
-		{
-			if (StringList[i] != $"{TEST_STRING}{TEST03_STRING_COUNT-i}")
-			{
-				AddError($"List string wrong, expected '{TEST_STRING}{TEST03_STRING_COUNT-i}' instead we got '{StringList[i]}'");
-			}
-		}
+        else
+        {
+            for (int i = 0; i < TEST03_STRING_COUNT; i++)
+            {
+                if (StringList[i] != $"{TEST_STRING}{TEST03_STRING_COUNT-i}")
+                {
+                    AddError($"List string wrong, expected '{TEST_STRING}{TEST03_STRING_COUNT-i}' instead we got '{StringList[i]}'");
+                }
+            }
+        }
 		TestFinished();
 	}
 

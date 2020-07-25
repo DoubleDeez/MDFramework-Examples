@@ -3,6 +3,11 @@ using System;
 using System.Collections.Generic;
 using MD;
 
+/// <summary>
+/// This tests the following
+/// 1 - Create a custom class with strings inside a list
+/// 2 - Modify the strings
+/// </summary>
 [MDAutoRegister]
 public class MDListTests02 : AutomaticTestBase
 {
@@ -10,7 +15,6 @@ public class MDListTests02 : AutomaticTestBase
     private const string TEST_STRING02 = "TestString02";
 
 	[MDReplicated]
-	[MDReplicatedSetting(MDReplicatedMember.Settings.OnValueChangedEvent, nameof(DoValidation))]
 	MDList<CustomClassWithStrings> StringList;
 
 	// Called when the node enters the scene tree for the first time.
@@ -48,6 +52,7 @@ public class MDListTests02 : AutomaticTestBase
 	protected void Test2()
 	{
 		StringList[0].StringValue = TEST_STRING02;
+        StringList[0].StringProperty = TEST_STRING02;
 	}
 
 	protected void ValidateTest2()
@@ -63,6 +68,10 @@ public class MDListTests02 : AutomaticTestBase
         else if (StringList[0].StringValue != TEST_STRING02)
 		{
 			LogError($"List value is not correct, it is {StringList[0].StringValue}");
+		}
+        else if (StringList[0].StringProperty != TEST_STRING02)
+		{
+			LogError($"List property is not correct, it is {StringList[0].StringProperty}");
 		}
 		TestFinished();
 	}
