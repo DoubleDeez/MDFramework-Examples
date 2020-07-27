@@ -38,9 +38,11 @@ public abstract class AutomaticTestBase : Node2D, IAutomaticTest
             AddError($"Got test finished signal for wrong test, should be {CurrentTest} but it was {Number}");
             return;
         }
+        MDLog.Debug(LOG_CAT, $"{this.GetType().ToString()}: Got validation signal for test {CurrentTest}");
         TestValidations++;
         if (TestValidations == TEST_VALIDATIONS_NEEDED)
         {
+            MDLog.Debug(LOG_CAT, $"{this.GetType().ToString()}: Validation complete for test {CurrentTest}");
             CurrentTest++;
             TestValidations = 0;
             StartNextTest();
@@ -52,43 +54,48 @@ public abstract class AutomaticTestBase : Node2D, IAutomaticTest
     {
         try
         {
-            MDLog.Debug(LOG_CAT, $"---------------------------------------------------------------");
-            MDLog.Debug(LOG_CAT, $"{this.GetType().ToString()}: Invoking ValidateTest{CurrentTest}");
-            MDLog.Debug(LOG_CAT, $"---------------------------------------------------------------");
+            DebugPrintHeader($"{this.GetType().ToString()}: Invoking ValidateTest{CurrentTest}");
             this.Invoke($"ValidateTest{CurrentTest}");
-            TestFinished();
         }
         catch {}
+        TestFinished();
     }
 
     protected void StartNextTest()
     {
         try
         {
-            MDLog.Debug(LOG_CAT, $"-------------------------------------------------------------------");
-            MDLog.Debug(LOG_CAT, $"{this.GetType().ToString()}: Attempting to Invoke Test{CurrentTest}");
-            MDLog.Debug(LOG_CAT, $"-------------------------------------------------------------------");
+            DebugPrintHeader($"{this.GetType().ToString()}: Attempting to Invoke Test{CurrentTest}");
             if (!this.Invoke($"Test{CurrentTest}"))
             {
                 // We failed to invoke test so we are done
                 SetTestComplete();
                 return;
             }
-            if (ValidationTimer == null)
-            {
-                ValidationTimer = this.CreateTimer("ValidationTimer", true, GetValidationWaitTime(), false, this, nameof(ServerDoValidation));
-            }
-            ValidationTimer.Start(GetValidationWaitTime());
         } 
-        catch
+        catch (Exception ex)
         {
-            // Any exception means we are done
-            SetTestComplete();
+            // We had an exception
+            MDLog.Debug(LOG_CAT, $"{this.GetType().ToString()}: Exception! {ex.Message}");
+            Exception root = ex;
+            while (root != null)
+            {
+                DebugPrintHeader(root.Message);
+                MDLog.Debug(LOG_CAT, root.StackTrace);
+                root = root.InnerException;
+            }
         }
+
+        if (ValidationTimer == null)
+        {
+            ValidationTimer = this.CreateTimer("ValidationTimer", true, GetValidationWaitTime(), false, this, nameof(ServerDoValidation));
+        }
+        ValidationTimer.Start(GetValidationWaitTime());
     }
 
     private void ServerDoValidation()
     {
+        MDLog.Debug(LOG_CAT, $"{this.GetType().ToString()}: Requesting validation for test {CurrentTest}");
         Rpc(nameof(DoValidation));
         ValidationTimer.Stop();
     }
@@ -108,6 +115,8 @@ public abstract class AutomaticTestBase : Node2D, IAutomaticTest
     {
         TestComplete = true;
         TestSuccess = ErrorList.Count == 0;
+        string Success = TestSuccess ? "Success" : "Failure";
+        DebugPrintHeader($"Test unit {this.GetType().ToString()} finished with result: {Success}");
     }
 
     protected void SetTestComplete(bool Success)
@@ -123,7 +132,15 @@ public abstract class AutomaticTestBase : Node2D, IAutomaticTest
 
     public void StartTest()
     {
+        DebugPrintHeader($"Starting test unit {this.GetType().ToString()}");
         StartNextTest();
+    }
+
+    protected void DebugPrintHeader(string Text)
+    {
+        MDLog.Debug(LOG_CAT, $"-------------------------------------------------------------------");
+        MDLog.Debug(LOG_CAT, Text);
+        MDLog.Debug(LOG_CAT, $"-------------------------------------------------------------------");
     }
 
     public bool IsComplete()
