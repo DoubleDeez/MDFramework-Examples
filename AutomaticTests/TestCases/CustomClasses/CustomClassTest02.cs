@@ -54,6 +54,10 @@ public class CustomClassTest02 : AutomaticTestBase
         {
             LogError($"List is null");
         }
+        else if (MyCustomClass.RecursiveList == null)
+        {
+            LogError($"List is null");
+        }
     }
 
     protected void Test2()
