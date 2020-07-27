@@ -327,12 +327,12 @@ public class ListActor : Node2D
             return;
         }
 
-        using (MDDisposableList<string> myList = ReplicatedStringList.GetRawList())
+        using (MDDisposableList<KeyValuePair<string, IMDDataConverter>> myList = ReplicatedStringList.GetRawList())
         {
             myList.Clear();
             for (int i = 0; i < 20; i++)
             {
-                myList.Add("unsafe value " + i);
+                myList.Add(new KeyValuePair<string, IMDDataConverter>("unsafe value " + i, MDStatics.GetConverterForType(typeof(string))));
             }
         }
 
