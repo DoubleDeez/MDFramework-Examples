@@ -18,6 +18,8 @@ public class MDRpcTest01 : AutomaticTestBase
 
     private bool BasicMethodCalled = false;
 
+    private bool InvokedOnServer = false;
+
     protected void CheckIfCustomMethodWasCalled()
     {
         if (!CustomClassMethodCalled)
@@ -34,6 +36,11 @@ public class MDRpcTest01 : AutomaticTestBase
             LogError("Basic method was not called");
         }
         BasicMethodCalled = false;
+    }
+
+    protected void MDRpcInvokeOnServer()
+    {
+        InvokedOnServer = true;
     }
 
     [Remote]
@@ -54,6 +61,13 @@ public class MDRpcTest01 : AutomaticTestBase
     {
         MyString = TEST_STRING;
         this.MDRpc(nameof(MDRpcBasicString), MyString);
+
+        // Extra test for server
+        this.MDRpcId(MDStatics.GetPeerId(), nameof(MDRpcInvokeOnServer));
+        if (!InvokedOnServer)
+        {
+            AddError("Failed to invoke with MDRpcId on local client");
+        }
     }
 
     protected void ValidateTest1()
