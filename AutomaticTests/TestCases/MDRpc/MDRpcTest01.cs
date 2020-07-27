@@ -40,12 +40,20 @@ public class MDRpcTest01 : AutomaticTestBase
 
     protected void MDRpcInvokeOnServer()
     {
+        if (MDStatics.GetReplicator().MDGetRpcSenderId() == -1)
+        {
+            AddError("MDRpcInvokeOnServer - MDRpc sender ID was -1");
+        }
         InvokedOnServer = true;
     }
 
     [Remote]
     private void MDRpcCustomClass(CustomClassWithStrings CustomClass)
     {
+        if (MDStatics.GetReplicator().MDGetRpcSenderId() == -1)
+        {
+            LogError("MDRpcCustomClass - MDRpc sender ID was -1");
+        }
         this.MyCustomClass = CustomClass;
         CustomClassMethodCalled = true;
     }
@@ -53,6 +61,10 @@ public class MDRpcTest01 : AutomaticTestBase
     [Remote]
     private void MDRpcBasicString(String StringValue)
     {
+        if (MDStatics.GetReplicator().MDGetRpcSenderId() == -1)
+        {
+            LogError("MDRpcBasicString - MDRpc sender ID was -1");
+        }
         this.MyString = StringValue;
         BasicMethodCalled = true;
     }
