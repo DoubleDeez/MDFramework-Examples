@@ -31,16 +31,16 @@ public class ListActor : Node2D
     [MDReplicatedSetting(MDList.Settings.COMPARATOR, nameof(MDListICompareNormal))] // Invalid, not a type
     [MDReplicatedSetting(MDList.Settings.COMPARATOR, typeof(MDListICompareInverse))] // Valid
     [MDReplicatedSetting(MDList.Settings.UNSAFE_MODE, true)]
-    private MDList<String> ReplicatedStringList;
+    private MDList<String> ReplicatedStringList = null;
 
     [MDBindNode("CanvasLayer/ItemList")]
-    private ItemList DisplayList;
+    private ItemList DisplayList = null;
 
     [MDBindNode("CanvasLayer/Controls/GridContainer/TxtAddItem")]
-    private TextEdit ItemInput;
+    private TextEdit ItemInput = null;
 
     [MDBindNode("CanvasLayer/Controls/ChangeNetworkMaster")]
-    private MenuButton PopupMenu;
+    private MenuButton PopupMenu = null;
 
     private MDGameSession GameSession;
 

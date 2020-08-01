@@ -1,13 +1,13 @@
 using Godot;
-using System;
-using System.Collections.Generic;
+using MD;
 
 public class TxtLog : RichTextLabel
 {
-    // Called when the node enters the scene tree for the first time.
+    private const string LOG_CAT = "LogAutomaticTest";
+
     public override void _Ready()
     {
-        
+        MDLog.AddLogCategoryProperties(LOG_CAT, new MDLogProperties(MDLogLevel.Trace));
     }
 
     public void LogNoLineBreak(string Text, Color Color)
@@ -15,6 +15,15 @@ public class TxtLog : RichTextLabel
         PushColor(Color);
         AddText(Text);
         Pop();
+
+        if (Color == Colors.Red)
+        {
+            MDLog.Error(LOG_CAT, Text);
+        }
+        else
+        {
+            MDLog.Info(LOG_CAT, Text);
+        }
     }
 
     public void Log(string Text, Color Color)
@@ -23,6 +32,15 @@ public class TxtLog : RichTextLabel
         AddText(Text);
         Pop();
         AddText("\n");
+
+        if (Color == Colors.Red)
+        {
+            MDLog.Error(LOG_CAT, Text);
+        }
+        else
+        {
+            MDLog.Info(LOG_CAT, Text);
+        }
     }
 
     public void Log(string Text)

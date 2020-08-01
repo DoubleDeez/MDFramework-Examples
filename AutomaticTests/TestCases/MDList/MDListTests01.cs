@@ -18,7 +18,7 @@ public class MDListTests01 : AutomaticTestBase
     private const int TEST03_STRING_COUNT = 20;
 
     [MDReplicated]
-    MDList<string> StringList;
+    MDList<string> StringList = null;
     
     protected void Test1()
     {

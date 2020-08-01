@@ -13,13 +13,13 @@ public class AutomaticTestsMain : Node2D
     private const float CHECK_TEST_STATUS_DELAY = 0.1f;
 
     [MDBindNode("CanvasLayer/GridContainer/LabelMode")]
-    private Label ModeLabel;
+    private Label ModeLabel = null;
 
     [MDBindNode("CanvasLayer/GridContainer/LabelStatus")]
-    private Label StatusLabel;
+    private Label StatusLabel = null;
 
     [MDBindNode("CanvasLayer/TxtLog")]
-    private TxtLog LogText;
+    private TxtLog LogText = null;
 
     private Queue<PackedScene> Tests = new Queue<PackedScene>();
 
