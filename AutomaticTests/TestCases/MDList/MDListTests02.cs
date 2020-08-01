@@ -15,7 +15,7 @@ public class MDListTests02 : AutomaticTestBase
     private const string TEST_STRING02 = "TestString02";
 
     [MDReplicated]
-    MDList<CustomClassWithStrings> StringList;
+    MDList<CustomClassWithStrings> StringList = null;
     
     protected void Test1()
     {
