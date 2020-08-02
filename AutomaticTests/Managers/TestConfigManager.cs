@@ -45,7 +45,7 @@ public class TestConfigManager
             return;
 		}
 		
-        MDLog.Info(LOG_CAT, $"Found {ConfigList.Count} configs ({MDStatics.GetParametersAsString(ConfigList.ToArray())})");
+        MDLog.Trace(LOG_CAT, $"Found {ConfigList.Count} configs ({MDStatics.GetParametersAsString(ConfigList.ToArray())})");
         ConfigList.ForEach(config => TestConfigs.Enqueue(new TestConfig(config)));
     }
 
