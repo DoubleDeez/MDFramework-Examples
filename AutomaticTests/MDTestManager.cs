@@ -289,13 +289,13 @@ public class MDTestManager : Node
 #region UTILITY METHODS
 
     private void LoadConfiguration()
-	{
-		if (!GameSession.GetConfiguration().LoadConfiguration("AutomaticTestConfig.ini"))
-		{
-			MDLog.Fatal(LOG_CAT, "Failed to load configuration");
-			GetTree().Quit();
-		}
-	}
+    {
+        if (!GameSession.GetConfiguration().LoadConfiguration("AutomaticTestConfig.ini"))
+        {
+            MDLog.Fatal(LOG_CAT, "Failed to load configuration");
+            GetTree().Quit();
+        }
+    }
 
     public void SetUIManager(TestUIManager Manager)
     {
