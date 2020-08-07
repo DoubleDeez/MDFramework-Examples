@@ -16,12 +16,19 @@ public class TestUIManager
         this.LogText = LogText;
         this.ModeLabel = ModeLabel;
         this.StatusLabel = StatusLabel;
+        LogText.ScrollFollowing = true;
     }
 
 	public void SetStatus(string Status)
 	{
 		StatusLabel.Text = Status;
-		Log($"New Status: {Status}", Colors.Purple);
+		Log($"{Status}", Colors.Purple);
+	}
+
+    public void SetStatus(string Status, Color Color)
+	{
+		StatusLabel.Text = Status;
+		Log($"{Status}", Color);
 	}
 
 	public void SetMode(String Mode)

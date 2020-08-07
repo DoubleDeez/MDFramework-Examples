@@ -24,7 +24,7 @@ public class AutoTestsMain : Node2D
 	{
 		TestUIManager manager = new TestUIManager(LogText, ModeLabel, StatusLabel);
 		MDTestManager TestManager = Activator.CreateInstance(typeof(MDTestManager)) as MDTestManager;
-		TestManager.Name = "TestManager";
+		TestManager.Name = MDTestManager.NODE_NAME;
 		TestManager.SetUIManager(manager);
 		GetTree().Root.AddChild(TestManager);
 	}
