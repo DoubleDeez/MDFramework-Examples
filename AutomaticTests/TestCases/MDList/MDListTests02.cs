@@ -8,6 +8,7 @@ using MD;
 /// 1 - Create a custom class with strings inside a list
 /// 2 - Modify the strings
 /// </summary>
+[MDTestClass]
 [MDAutoRegister]
 public class MDListTests02 : AutomaticTestBase
 {
@@ -16,13 +17,14 @@ public class MDListTests02 : AutomaticTestBase
 
     [MDReplicated]
     MDList<CustomClassWithStrings> StringList = null;
-    
-    protected void Test1()
+
+    [MDTest]
+    protected void TestAddCustomClassToMDList()
     {
         StringList.Add(new CustomClassWithStrings(TEST_STRING01, TEST_STRING01));
     }
 
-    protected void ValidateTest1()
+    protected void TestAddCustomClassToMDListValidate()
     {
         if (StringList.Count != 1)
         {
@@ -42,13 +44,14 @@ public class MDListTests02 : AutomaticTestBase
         }
     }
 
-    protected void Test2()
+    [MDTest]
+    protected void TestSetValuesOnCustomClassInsideMDList()
     {
         StringList[0].StringValue = TEST_STRING02;
         StringList[0].StringProperty = TEST_STRING02;
     }
 
-    protected void ValidateTest2()
+    protected void TestSetValuesOnCustomClassInsideMDListValidate()
     {
         if (StringList.Count != 1)
         {

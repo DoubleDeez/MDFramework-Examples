@@ -29,6 +29,7 @@ internal class CustomClassWithStrings
 /// 3 - Setting a value and property to null
 /// 4 - Setting the custom class itself to null
 /// </summary>
+[MDTestClass]
 [MDAutoRegister]
 public class CustomClassTest01 : AutomaticTestBase
 {
@@ -38,12 +39,13 @@ public class CustomClassTest01 : AutomaticTestBase
     [MDReplicated]
     private CustomClassWithStrings MyCustomClass;
 
-    protected void Test1()
+    [MDTest]
+    protected void TestCreateCustomClassWithStrings()
     {
         MyCustomClass = new CustomClassWithStrings(STRING_VALUE01, STRING_VALUE02);
     }
 
-    protected void ValidateTest1()
+    protected void TestCreateCustomClassWithStringsValidate()
     {
         if (MyCustomClass == null)
         {
@@ -59,13 +61,14 @@ public class CustomClassTest01 : AutomaticTestBase
         }
     }
 
-    protected void Test2()
+    [MDTest]
+    protected void TestModifyCustomClass()
     {
         MyCustomClass.StringProperty = STRING_VALUE01;
         MyCustomClass.StringValue = STRING_VALUE02;
     }
 
-    protected void ValidateTest2()
+    protected void TestModifyCustomClassValidate()
     {
         if (MyCustomClass == null)
         {
@@ -81,13 +84,14 @@ public class CustomClassTest01 : AutomaticTestBase
         }
     }
 
-    protected void Test3()
+    [MDTest]
+    protected void TestSetValuesInCustomClassToNull()
     {
         MyCustomClass.StringProperty = null;
         MyCustomClass.StringValue = null;
     }
 
-    protected void ValidateTest3()
+    protected void TestSetValuesInCustomClassToNullValidate()
     {
         if (MyCustomClass == null)
         {
@@ -103,12 +107,13 @@ public class CustomClassTest01 : AutomaticTestBase
         }
     }
 
-    protected void Test4()
+    [MDTest]
+    protected void TestSetCustomClassToNull()
     {
         MyCustomClass = null;
     }
 
-    protected void ValidateTest4()
+    protected void TestSetCustomClassToNullValidate()
     {
         if (MyCustomClass != null)
         {

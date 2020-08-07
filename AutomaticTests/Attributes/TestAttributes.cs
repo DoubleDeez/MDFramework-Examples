@@ -33,6 +33,13 @@ public class MDTestClass : Attribute
         this.TestGroup = TestGroup;
         this.AlwaysRunInAllMode = AlwaysRunInAllMode;
     }
+
+    public MDTestClass(bool DevelopmentMode)
+    {
+        this.DevelopmentMode = DevelopmentMode;
+        this.TestGroup = TEST_GROUP_ALL;
+        this.AlwaysRunInAllMode = false;
+    }
 }
 
 [AttributeUsage(AttributeTargets.Method)]

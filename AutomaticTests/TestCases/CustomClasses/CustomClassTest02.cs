@@ -30,6 +30,7 @@ internal class CustomClassWithList
 /// 5 - Add another recursive custom class to the list inside the custom class added in the last step
 /// 6 - Set both lists to null
 /// </summary>
+[MDTestClass]
 [MDAutoRegister]
 public class CustomClassTest02 : AutomaticTestBase
 {
@@ -39,12 +40,13 @@ public class CustomClassTest02 : AutomaticTestBase
     [MDReplicated]
     private CustomClassWithList MyCustomClass;
 
-    protected void Test1()
+    [MDTest]
+    protected void TestCreateCustomClassWithList()
     {
         MyCustomClass = new CustomClassWithList();
     }
 
-    protected void ValidateTest1()
+    protected void TestCreateCustomClassWithListValidate()
     {
         if (MyCustomClass == null)
         {
@@ -60,13 +62,14 @@ public class CustomClassTest02 : AutomaticTestBase
         }
     }
 
-    protected void Test2()
+    [MDTest]
+    protected void TestCreateCustomClassInsideCustomClass()
     {
         CustomClassWithStrings CustomClass = new CustomClassWithStrings(STRING_VALUE01, STRING_VALUE02);
         MyCustomClass.ListValue.Add(CustomClass);
     }
 
-    protected void ValidateTest2()
+    protected void TestCreateCustomClassInsideCustomClassValidate()
     {
         if (MyCustomClass == null)
         {
@@ -90,12 +93,13 @@ public class CustomClassTest02 : AutomaticTestBase
         }
     }
 
-    protected void Test3()
+    [MDTest]
+    protected void TestRemoveFromListInsideCustomClass()
     {
         MyCustomClass.ListValue.RemoveAt(0);
     }
 
-    protected void ValidateTest3()
+    protected void TestRemoveFromListInsideCustomClassValidate()
     {
         if (MyCustomClass == null)
         {
@@ -111,13 +115,14 @@ public class CustomClassTest02 : AutomaticTestBase
         }
     }
 
-    protected void Test4()
+    [MDTest]
+    protected void TestAddRecursiveClassInsideCustomClass()
     {
         CustomClassWithList CustomClass = new CustomClassWithList();
         MyCustomClass.RecursiveList.Add(CustomClass);
     }
 
-    protected void ValidateTest4()
+    protected void TestAddRecursiveClassInsideCustomClassValidate()
     {
         if (MyCustomClass == null)
         {
@@ -137,13 +142,14 @@ public class CustomClassTest02 : AutomaticTestBase
         }
     }
 
-    protected void Test5()
+    [MDTest]
+    protected void TestAddRecursiveClassInsideCustomClass2()
     {
         CustomClassWithList CustomClass = new CustomClassWithList();
         MyCustomClass.RecursiveList[0].RecursiveList.Add(CustomClass);
     }
 
-    protected void ValidateTest5()
+    protected void TestAddRecursiveClassInsideCustomClass2Validate()
     {
         if (MyCustomClass == null)
         {
@@ -175,13 +181,14 @@ public class CustomClassTest02 : AutomaticTestBase
         }
     }
 
-    protected void Test6()
+    [MDTest]
+    protected void TestSetListsAndRecursiveClassToNull()
     {
         MyCustomClass.ListValue = null;
         MyCustomClass.RecursiveList = null;
     }
 
-    protected void ValidateTest6()
+    protected void TestSetListsAndRecursiveClassToNullValidate()
     {
         if (MyCustomClass.ListValue != null)
         {

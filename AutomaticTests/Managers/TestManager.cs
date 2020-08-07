@@ -82,9 +82,13 @@ public class TestClassInfo
         this.Instance = MDStatics.GetGameSession().SpawnNetworkedNode(Type, TestManager.Instance, GetNameNoBrackets());
     }
 
-    public bool ShouldRunTestClass(string GroupName)
+    public bool ShouldRunTestClass(string GroupName, bool DevelopmentMode)
     {
-        if (this.TestGroup.Equals(GroupName))
+        if (DevelopmentMode && !this.DevelopmentMode)
+        {
+            return false;
+        }
+        else if (this.TestGroup.Equals(GroupName))
         {
             return true;
         } 
@@ -221,6 +225,8 @@ public class TestManager : Node
 
     private string GroupName = "";
 
+    private bool DevelopmentMode = false;
+
     public TestManager(MDTestManager MDTestManager)
     {
         this.MDTestMan = MDTestManager;
@@ -247,6 +253,7 @@ public class TestManager : Node
     {
         CurrentTestClass = -1;
         this.GroupName = GroupName;
+        this.DevelopmentMode = TestClassList.Any(tci => tci.DevelopmentMode == true);
         StartNextTestClass();
     }
 #region TEST LOOP
@@ -259,7 +266,7 @@ public class TestManager : Node
         CurrentTestClass++;
         if (CurrentTestClass < TestClassList.Count)
         {
-            if (GetCurrentTestClass().ShouldRunTestClass(GroupName))
+            if (GetCurrentTestClass().ShouldRunTestClass(GroupName, DevelopmentMode))
             {
                 CurrentResponses = 0;
                 CurrentTest = -1;

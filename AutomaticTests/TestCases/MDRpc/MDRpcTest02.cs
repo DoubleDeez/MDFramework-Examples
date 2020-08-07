@@ -30,41 +30,45 @@ public class MDRpcTest02Base : AutomaticTestBase
 /// <summary>
 /// Tests calling RPC methods that are on the base class
 /// </summary>
+[MDTestClass]
 [MDAutoRegister]
 public class MDRpcTest02 : MDRpcTest02Base
 {
-    protected void Test1()
+    [MDTest]
+    protected void TestCallPublicInheritedRpcMethod()
     {
         this.MDRpc(nameof(PublicRPC), 1);
     }
 
-    protected void ValidateTest1()
+    protected void TestCallPublicInheritedRpcMethodValidate()
     {
         if (PublicRPCValue != 1)
         {
             LogError($"PublicRPCValue is {PublicRPCValue} but expected 1");
         }
     }
-    
-    protected void Test2()
+
+    [MDTest]
+    protected void TestCallProtectedVirtualInheritedRpcMethod()
     {
         this.MDRpc(nameof(ProtectedVirtualRPC), 2);
     }
 
-    protected void ValidateTest2()
+    protected void TestCallProtectedVirtualInheritedRpcMethodValidate()
     {
         if (ProtectedVirtualRPCValue != 2)
         {
             LogError($"ProtectedVirtualRPCValue is {ProtectedVirtualRPCValue} but expected 2");
         }
     }
-    
-    protected void Test3()
+
+    [MDTest]
+    protected void TestCallPrivateMDRpcMethod()
     {
         this.MDRpc("PrivateRPC", 3);
     }
 
-    protected void ValidateTest3()
+    protected void TestCallPrivateMDRpcMethodValidate()
     {
         if (PrivateRPCValue != 3)
         {

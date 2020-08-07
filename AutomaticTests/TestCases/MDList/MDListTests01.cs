@@ -11,6 +11,7 @@ using MD;
 /// 4 - Sort an MDList
 /// TODO: Test more MDList features
 /// </summary>
+[MDTestClass]
 [MDAutoRegister]
 public class MDListTests01 : AutomaticTestBase
 {
@@ -20,12 +21,13 @@ public class MDListTests01 : AutomaticTestBase
     [MDReplicated]
     MDList<string> StringList = null;
     
-    protected void Test1()
+    [MDTest]
+    protected void AddStringToMDList()
     {
         StringList.Add(TEST_STRING);
     }
 
-    protected void ValidateTest1()
+    protected void AddStringToMDListValidate()
     {
         if (StringList.Count != 1)
         {
@@ -37,12 +39,13 @@ public class MDListTests01 : AutomaticTestBase
         }
     }
 
-    protected void Test2()
+    [MDTest]
+    protected void TestRemoveStringFromMDList()
     {
         StringList.Remove(TEST_STRING);
     }
 
-    protected void ValidateTest2()
+    protected void TestRemoveStringFromMDListValidate()
     {
         if (StringList.Count != 0)
         {
@@ -50,7 +53,8 @@ public class MDListTests01 : AutomaticTestBase
         }
     }
 
-    protected void Test3()
+    [MDTest]
+    protected void TestAddMultipleStringsToMDList()
     {
         for (int i = TEST03_STRING_COUNT; i > 0; i--)
         {
@@ -58,7 +62,7 @@ public class MDListTests01 : AutomaticTestBase
         }
     }
 
-    protected void ValidateTest3()
+    protected void TestAddMultipleStringsToMDListValidate()
     {
         // Wait for all strings to arrive
         if (StringList.Count < TEST03_STRING_COUNT)
@@ -73,22 +77,6 @@ public class MDListTests01 : AutomaticTestBase
                 {
                     AddError($"List string wrong, expected '{TEST_STRING}{TEST03_STRING_COUNT-i}' instead we got '{StringList[i]}'");
                 }
-            }
-        }
-    }
-
-    protected void Test4()
-    {
-        StringList.Sort();
-    }
-
-    protected void ValidateTest4()
-    {
-        for (int i = 0; i < TEST03_STRING_COUNT; i++)
-        {
-            if (StringList[i] != $"{TEST_STRING}{i}")
-            {
-                AddError($"List string wrong, expected '{TEST_STRING}{i}' instead we got '{StringList[i]}'");
             }
         }
     }
