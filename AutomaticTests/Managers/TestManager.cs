@@ -235,11 +235,11 @@ public class TestManager : Node
         // Load our config files
         List<Type> FoundTests = MDStatics.FindAllScriptsImplementingAttribute<MDTestClass>();
         if (FoundTests.Count == 0)
-		{
-			MDLog.Fatal(LOG_CAT, "No tests found");
+        {
+            MDLog.Fatal(LOG_CAT, "No tests found");
             return;
-		}
-		
+        }
+        
         MDLog.Trace(LOG_CAT, $"Found {FoundTests.Count} tests ({MDStatics.GetParametersAsString(FoundTests.ToArray())})");
         FoundTests.ForEach(test => TestClassList.Add(new TestClassInfo(test)));
     }

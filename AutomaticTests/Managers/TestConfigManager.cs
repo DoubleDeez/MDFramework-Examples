@@ -68,7 +68,7 @@ public enum TestConfigCommands
 {
     INIT_CONFIG,    // Sent when we start a new config run, causes before disconnect to be run on current config.
                     // Then disconnect happens, run after disconnect, before connect, then wait and reconnect. Then after connect is run
-    ACK_INITI_CONFIG, // Sent by clients right before they disconnect
+    ACK_INIT_CONFIG, // Sent by clients right before they disconnect
     DISCONNECT_TIMER_TIMEOUT, // Used for disconnect timer
     RECONNECT_TIMER_TIMEOUT, // Used for reconnect timer
     RECONNECT_MESSAGE_TIMER_TIMEOUT, // Used to make sure we send reconnect message after we connected
@@ -104,11 +104,11 @@ public class TestConfigManager : Node
         // Load our config files
         List<Type> ConfigList = MDStatics.FindAllScriptsImplementingAttribute<MDTestConfig>();
         if (ConfigList.Count == 0)
-		{
-			MDLog.Fatal(LOG_CAT, "No configs found");
+        {
+            MDLog.Fatal(LOG_CAT, "No configs found");
             return;
-		}
-		
+        }
+        
         MDLog.Trace(LOG_CAT, $"Found {ConfigList.Count} configs ({MDStatics.GetParametersAsString(ConfigList.ToArray())})");
         ConfigList.ForEach(config => TestConfigs.Add(new TestConfig(config)));
     }
@@ -189,7 +189,7 @@ public class TestConfigManager : Node
     /// <param name="Config">The next config to load</param>
     private void RunConfig(TestConfig Config)
     {
-       InvokeBeforeDisconnect();
+        InvokeBeforeDisconnect();
 
         // Set the current config
         NextConfig = TestConfigs.IndexOf(Config);
@@ -209,7 +209,7 @@ public class TestConfigManager : Node
     {
         InvokeBeforeDisconnect();
         NextConfig = ConfigIndex;
-        this.MDServerRpc(nameof(SendTestConfigManagerMessage), TestConfigCommands.ACK_INITI_CONFIG, ConfigIndex);
+        this.MDServerRpc(nameof(SendTestConfigManagerMessage), TestConfigCommands.ACK_INIT_CONFIG, ConfigIndex);
         Timer timer = TestManager.CreateTimer("DisconnectTimer", true, DISCONNECT_DELAY, 
                         true, TestManager, MDTestManager.TEST_CONFIG_TIMER_METHOD, TestConfigCommands.DISCONNECT_TIMER_TIMEOUT);
         timer.Start();
@@ -323,7 +323,7 @@ public class TestConfigManager : Node
             case TestConfigCommands.INIT_CONFIG:
                 ClientRunConfig(ConfigNumber);
                 break;
-            case TestConfigCommands.ACK_INITI_CONFIG:
+            case TestConfigCommands.ACK_INIT_CONFIG:
                 if (SignalsRecieved == MDTestManager.CLIENT_COUNT)
                 {
                     ServerDisconnect();
