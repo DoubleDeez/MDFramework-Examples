@@ -16,7 +16,7 @@ public class MDReplicatedTest01Base : AutomaticTestBase
     [MDReplicated]
     private int PrivateIntField;
 
-    public void SetPrivateIntField(int Value)
+    protected void SetPrivateIntField(int Value)
     {
         PrivateIntField = 3;
     }
@@ -27,15 +27,17 @@ public class MDReplicatedTest01Base : AutomaticTestBase
     }
 }
 
+[MDTestClass]
 [MDAutoRegister]
 public class MDReplicatedTest01 : MDReplicatedTest01Base
 {
-    protected void Test1()
+    [MDTest]
+    protected void TestSetPublicIntField()
     {
         PublicIntField = 1;
     }
 
-    protected void ValidateTest1()
+    protected void TestSetPublicIntFieldValidate()
     {
         if (PublicIntField != 1)
         {
@@ -43,12 +45,13 @@ public class MDReplicatedTest01 : MDReplicatedTest01Base
         }
     }
     
-    protected void Test2()
+    [MDTest]
+    protected void TestSetProtectedIntProperty()
     {
        ProtectedIntProperty = 2;
     }
 
-    protected void ValidateTest2()
+    protected void TestSetProtectedIntPropertyValidate()
     {
         if (ProtectedIntProperty != 2)
         {
@@ -56,12 +59,13 @@ public class MDReplicatedTest01 : MDReplicatedTest01Base
         }
     }
     
-    protected void Test3()
+    [MDTest]
+    protected void TestCallProtectedMethod()
     {
         SetPrivateIntField(3);
     }
 
-    protected void ValidateTest3()
+    protected void TestCallProtectedMethodValidate()
     {
         if (GetPrivateIntField() != 3)
         {

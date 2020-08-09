@@ -6,6 +6,7 @@ using MD;
 /// Simple test for Rpc
 /// Tests sending a String & Custom class and sending null for both as well
 /// </summary>
+[MDTestClass]
 public class MDRpcTest01 : AutomaticTestBase
 {
     private const string TEST_STRING = "TestString";
@@ -57,7 +58,8 @@ public class MDRpcTest01 : AutomaticTestBase
         BasicMethodCalled = true;
     }
 
-    protected void Test1()
+    [MDTest]
+    protected void TestSendStringOverMDRpc()
     {
         MyString = TEST_STRING;
         this.MDRpc(nameof(MDRpcBasicString), MyString);
@@ -70,7 +72,7 @@ public class MDRpcTest01 : AutomaticTestBase
         }
     }
 
-    protected void ValidateTest1()
+    protected void TestSendStringOverMDRpcValidate()
     {
         CheckIfBasicMethodWasCalled();
         if (MyString == null)
@@ -83,12 +85,13 @@ public class MDRpcTest01 : AutomaticTestBase
         }
     }
 
-    protected void Test2()
+    [MDTest]
+    protected void TestSendNullOverMDRpc()
     {
         this.MDRpc(nameof(MDRpcBasicString), null);
     }
 
-    protected void ValidateTest2()
+    protected void TestSendNullOverMDRpcValidate()
     {
         CheckIfBasicMethodWasCalled();
         if (MyString != null)
@@ -96,14 +99,15 @@ public class MDRpcTest01 : AutomaticTestBase
             LogError("String is not null");
         }
     }
-    
-    protected void Test3()
+
+    [MDTest]
+    protected void TestSendCustomClassOverMDRpc()
     {
         MyCustomClass = new CustomClassWithStrings(TEST_STRING, TEST_STRING);
         this.MDRpc(nameof(MDRpcCustomClass), MyCustomClass);
     }
 
-    protected void ValidateTest3()
+    protected void TestSendCustomClassOverMDRpcValidate()
     {
         CheckIfCustomMethodWasCalled();
         if (MyCustomClass == null)
@@ -120,12 +124,13 @@ public class MDRpcTest01 : AutomaticTestBase
         }
     }
 
-    protected void Test4()
+    [MDTest]
+    protected void TestSendNullToCustomClassMethodOverMDRpc()
     {
         this.MDRpc(nameof(MDRpcCustomClass), null);
     }
 
-    protected void ValidateTest4()
+    protected void TestSendNullToCustomClassMethodOverMDRpcValidate()
     {
         CheckIfCustomMethodWasCalled();
         if (MyCustomClass != null)

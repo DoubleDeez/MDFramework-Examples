@@ -67,6 +67,7 @@ internal class CustomClassWithManyValues
 /// <summary>
 /// This test class aims to test all Godot value types along with basic C# types
 /// </summary>
+[MDTestClass]
 [MDAutoRegister]
 public class CustomClassTest03 : AutomaticTestBase
 {
@@ -82,13 +83,13 @@ public class CustomClassTest03 : AutomaticTestBase
     private long LongValue = 423434334;
     private string StringValue = "Some/node/path";
 
-
-    protected void Test1()
+    [MDTest]
+    protected void TestCreateCustomClassWithManyValueTypes()
     {
         MyCustomClass = new CustomClassWithManyValues();
     }
 
-    protected void ValidateTest1()
+    protected void TestCreateCustomClassWithManyValueTypesValidate()
     {
         if (MyCustomClass == null)
         {
@@ -96,12 +97,13 @@ public class CustomClassTest03 : AutomaticTestBase
         }
     }
 
-    protected void Test2()
+    [MDTest]
+    protected void TestSetAABBValue()
     {
         MyCustomClass.AABBValue = new AABB(Vector3Value, Vector3Value);
     }
 
-    protected void ValidateTest2()
+    protected void TestSetAABBValueValidate()
     {
         if (MyCustomClass == null)
         {
@@ -122,12 +124,13 @@ public class CustomClassTest03 : AutomaticTestBase
         }
     }
 
-    protected void Test3()
+    [MDTest]
+    protected void TestSetBasisValue()
     {
         MyCustomClass.BasisValue = new Basis(Vector3Value, Vector3Value, Vector3Value);
     }
 
-    protected void ValidateTest3()
+    protected void TestSetBasisValueValidate()
     {
         if (MyCustomClass == null)
         {
@@ -152,12 +155,13 @@ public class CustomClassTest03 : AutomaticTestBase
         }
     }
 
-    protected void Test4()
+    [MDTest]
+    protected void TestSetColorValue()
     {
         MyCustomClass.ColorValue = Colors.Red;
     }
 
-    protected void ValidateTest4()
+    protected void TestSetColorValueValidate()
     {
         if (MyCustomClass == null)
         {
@@ -174,7 +178,8 @@ public class CustomClassTest03 : AutomaticTestBase
         }
     }
 
-    protected void Test5()
+    [MDTest]
+    protected void TestSetCSharpBaseTypeValues()
     {
         // Test most C# base types
         MyCustomClass.DecimalValue = DecimalValue;
@@ -186,7 +191,7 @@ public class CustomClassTest03 : AutomaticTestBase
         MyCustomClass.BoolValue = true;
     }
 
-    protected void ValidateTest5()
+    protected void TestSetCSharpBaseTypeValuesValidate()
     {
         if (MyCustomClass == null)
         {
@@ -223,12 +228,13 @@ public class CustomClassTest03 : AutomaticTestBase
         }
     }
 
-    protected void Test6()
+    [MDTest]
+    protected void TestSetNodePathValue()
     {
         MyCustomClass.NodePathValue = new NodePath(StringValue);
     }
 
-    protected void ValidateTest6()
+    protected void TestSetNodePathValueValidate()
     {
         if (MyCustomClass == null)
         {
@@ -245,12 +251,13 @@ public class CustomClassTest03 : AutomaticTestBase
         }
     }
 
-    protected void Test7()
+    [MDTest]
+    protected void TestSetPlaneValue()
     {
         MyCustomClass.PlaneValue = new Plane(Vector3Value, FloatValue);
     }
 
-    protected void ValidateTest7()
+    protected void TestSetPlaneValueValidate()
     {
         if (MyCustomClass == null)
         {
@@ -271,12 +278,13 @@ public class CustomClassTest03 : AutomaticTestBase
         }
     }
 
-    protected void Test8()
+    [MDTest]
+    protected void TestSetQuatValue()
     {
         MyCustomClass.QuatValue = new Quat(FloatValue, FloatValue, FloatValue, FloatValue);
     }
 
-    protected void ValidateTest8()
+    protected void TestSetQuatValueValidate()
     {
         if (MyCustomClass == null)
         {
@@ -305,12 +313,13 @@ public class CustomClassTest03 : AutomaticTestBase
         }
     }
 
-    protected void Test9()
+    [MDTest]
+    protected void TestSetRect2Value()
     {
         MyCustomClass.Rect2Value = new Rect2(Vector2Value, Vector2Value);
     }
 
-    protected void ValidateTest9()
+    protected void TestSetRect2ValueValidate()
     {
         if (MyCustomClass == null)
         {
@@ -331,12 +340,13 @@ public class CustomClassTest03 : AutomaticTestBase
         }
     }
 
-    protected void Test10()
+    [MDTest]
+    protected void TestSetTransform2DValue()
     {
         MyCustomClass.Transform2DValue = new Transform2D(Vector2Value, Vector2Value, Vector2Value);
     }
 
-    protected void ValidateTest10()
+    protected void TestSetTransform2DValueValidate()
     {
         if (MyCustomClass == null)
         {
@@ -361,12 +371,13 @@ public class CustomClassTest03 : AutomaticTestBase
         }
     }
 
-    protected void Test11()
+    [MDTest]
+    protected void TestSetTransformValue()
     {
         MyCustomClass.TransformValue = new Transform(Vector3Value, Vector3Value, Vector3Value, Vector3Value);
     }
 
-    protected void ValidateTest11()
+    protected void TestSetTransformValueValidate()
     {
         if (MyCustomClass == null)
         {
@@ -395,13 +406,14 @@ public class CustomClassTest03 : AutomaticTestBase
         }
     }
 
-    protected void Test12()
+    [MDTest]
+    protected void TestSetVectorValues()
     {
         MyCustomClass.Vector2Value = Vector2Value;
         MyCustomClass.Vector3Value = Vector3Value;
     }
 
-    protected void ValidateTest12()
+    protected void TestSetVectorValuesValidate()
     {
         if (MyCustomClass == null)
         {

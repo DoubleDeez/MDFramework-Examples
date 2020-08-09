@@ -6,6 +6,7 @@ using MD;
 /// Simple test for Rset
 /// Tests sending a String & Custom class and sending null for both as well
 /// </summary>
+[MDTestClass]
 public class MDRsetTest01 : AutomaticTestBase
 {
     private const string TEST_STRING = "TestString";
@@ -18,14 +19,15 @@ public class MDRsetTest01 : AutomaticTestBase
 
     [Remote]
     MDList<CustomClassWithList> MyMDList = null;
-    
-    protected void Test1()
+
+    [MDTest]
+    protected void TestMDRsetWithCustomClass()
     {
         MyCustomClass = new CustomClassWithStrings(TEST_STRING, TEST_STRING);
         this.MDRset(nameof(MyCustomClass), MyCustomClass);
     }
 
-    protected void ValidateTest1()
+    protected void TestMDRsetWithCustomClassValidate()
     {
         if (MyCustomClass == null)
         {
@@ -41,13 +43,14 @@ public class MDRsetTest01 : AutomaticTestBase
         }
     }
 
-    protected void Test2()
+    [MDTest]
+    protected void TestMDRsetCustomClassWithNull()
     {
         this.MDRset(nameof(MyCustomClass), null);
         this.MDRset(nameof(MyString), TEST_STRING);
     }
 
-    protected void ValidateTest2()
+    protected void TestMDRsetCustomClassWithNullValidate()
     {
         if (MyCustomClass != null)
         {
@@ -59,7 +62,8 @@ public class MDRsetTest01 : AutomaticTestBase
         }
     }
 
-    protected void Test3()
+    [MDTest]
+    protected void TestMDRsetCustomClassContainingOtherCustomClasses()
     {
         MDList<CustomClassWithList> TmpList = new MDList<CustomClassWithList>();
         CustomClassWithList item = new CustomClassWithList();
@@ -70,7 +74,7 @@ public class MDRsetTest01 : AutomaticTestBase
         this.MDRset(nameof(MyMDList), TmpList);
     }
 
-    protected void ValidateTest3()
+    protected void TestMDRsetCustomClassContainingOtherCustomClassesValidate()
     {
         if (MyMDList == null)
         {
@@ -104,12 +108,13 @@ public class MDRsetTest01 : AutomaticTestBase
         }
     }
 
-    protected void Test4()
+    [MDTest]
+    protected void TestMDRsetMDListAsNull()
     {
         this.MDRset(nameof(MyMDList), null);
     }
 
-    protected void ValidateTest4()
+    protected void TestMDRsetMDListAsNullValidate()
     {
         if (MyMDList != null)
         {
